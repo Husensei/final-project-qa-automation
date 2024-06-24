@@ -38,4 +38,29 @@ public class ApiStepDefinitions {
     public void validationResponseJSONWithJSONSchema(String filename) {
         apiPage.validationResponseJSONWithJSONSchema(filename);
     }
+
+    @And("add {string} query params with value {int}")
+    public void addQueryParamsWithValue(String param, int value) {
+        apiPage.addQueryParamsWithValue(param, value);
+    }
+
+    @And("retrieve {string} user ID")
+    public void retrieveUserID(String validity) {
+        apiPage.retrieveUserID(validity);
+    }
+
+    @And("validation response body data specific users")
+    public void validationResponseBodyDataSpecificUsers() {
+        apiPage.validationResponseBodyDataSpecificUsers();
+    }
+
+    @And("validation error message {string}")
+    public void validationErrorMessage(String errorMessage) {
+        apiPage.validationErrorMessage(errorMessage);
+    }
+
+    @And("validation response body list created users")
+    public void validationResponseBodyListCreatedUsers() {
+        apiPage.validationResponseBodyListCreatedUsers();
+    }
 }
