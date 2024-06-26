@@ -2,7 +2,6 @@ package pages;
 
 import helper.Endpoint;
 import helper.Utility;
-import io.cucumber.cienvironment.internal.com.eclipsesource.json.Json;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -35,6 +34,15 @@ public class ApiPage {
                 break;
             case "CREATE_NEW_USER":
                 setUrl = Endpoint.CREATE_NEW_USER;
+                break;
+            case "UPDATE_USER":
+                setUrl = Endpoint.UPDATE_USER;
+                break;
+            case "DELETE_USER":
+                setUrl = Endpoint.DELETE_USER;
+                break;
+            case "GET_LIST_TAGS":
+                setUrl = Endpoint.GET_LIST_TAGS;
                 break;
             default:
                 System.out.println("Invalid endpoint");
@@ -233,5 +241,58 @@ public class ApiPage {
         assertThat(message).isEqualTo("Email already used");
     }
 
+    public void sendPOSTRequestWithBlank() {
+        res = postCreateNewUserWithBlank(setUrl);
+    }
 
+    public void validationResponseBodyCreateNewUserWithBlank() {
+        JsonPath jsonPath = new JsonPath(res.asString());
+        String error = jsonPath.getString("error");
+
+        Map<String, String> fieldErrors = jsonPath.get("data");
+        if (error != null && error.equals("BODY_NOT_VALID")) {
+            for (String key : fieldErrors.keySet()) {
+                String errorMessage = fieldErrors.get(key);
+                assertThat(errorMessage).isEqualTo("Path `" + key + "` is required.");
+            }
+        }
+    }
+
+    public void sendPUTRequest() {
+        res = putUpdateUser(setUrl);
+    }
+
+    public void validationResponseBodyUpdateUser() {
+        JsonPath jsonPath = new JsonPath(res.asString());
+        String id = jsonPath.getString("id");
+        String firstName = jsonPath.getString("firstName");
+        String lastName = jsonPath.getString("lastName");
+        String email = jsonPath.getString("email");
+        String registerDate = jsonPath.getString("registerDate");
+        String updatedDate = jsonPath.getString("updatedDate");
+
+        assertThat(id).isNotNull();
+        assertThat(firstName).isNotNull();
+        assertThat(lastName).isNotNull();
+        assertThat(email).isNotNull();
+        assertThat(registerDate).isNotNull();
+        assertThat(updatedDate).isNotNull();
+    }
+
+    public void sendDELETERequest() {
+        res = deleteUserData(setUrl);
+    }
+
+    public void validationResponseBodyDeleteUserData() {
+        JsonPath jsonPath = new JsonPath(res.asString());
+        String id = jsonPath.getString("id");
+
+        assertThat(id).isEqualTo(retrievedId);
+    }
+
+    public void validationResponseBodyGetListTags() {
+        JsonPath jsonPath = new JsonPath(res.asString());
+        assertThat(jsonPath.getString("data")).isNotNull();
+        assertThat(jsonPath.getString("$.data[0]")).isNull();
+    }
 }

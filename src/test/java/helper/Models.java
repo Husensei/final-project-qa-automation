@@ -54,4 +54,36 @@ public class Models {
 
         return request.body(payload.toString()).when().post(endpoint);
     }
+
+    public static Response postCreateNewUserWithBlank(String endpoint) {
+        setUpHeaders();
+        String firstName = "", lastName = "", email = "";
+
+        JSONObject payload = new JSONObject();
+        payload.put("firstName", firstName);
+        payload.put("lastName", lastName);
+        payload.put("email", email);
+
+        return request.body(payload.toString()).when().post(endpoint);
+    }
+
+    public static Response putUpdateUser(String endpoint) {
+        setUpHeaders();
+
+        String firstName = "Updated";
+        String lastName = "Name";
+        String email = generateRandomEmail();
+
+        JSONObject payload = new JSONObject();
+        payload.put("firstName", firstName);
+        payload.put("lastName", lastName);
+        payload.put("email", email);
+
+        return request.body(payload.toString()).when().put(endpoint);
+    }
+
+    public static Response deleteUserData(String endpoint) {
+        setUpHeaders();
+        return request.when().delete(endpoint);
+    }
 }

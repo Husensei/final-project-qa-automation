@@ -88,4 +88,39 @@ public class ApiStepDefinitions {
     public void validationResponseBodyCreateNewUserWithExistingEmail() {
         apiPage.validationResponseBodyCreateNewUserWithExistingEmail();
     }
+
+    @When("send POST request with blank field")
+    public void sendPOSTRequestWithBlank() {
+        apiPage.sendPOSTRequestWithBlank();
+    }
+
+    @And("validation response body create new user with blank field")
+    public void validationResponseBodyCreateNewUserWithBlank() {
+        apiPage.validationResponseBodyCreateNewUserWithBlank();
+    }
+
+    @When("send PUT request")
+    public void sendPUTRequest() {
+        apiPage.sendPUTRequest();
+    }
+
+    @And("validation response body update user")
+    public void validationResponseBodyUpdateUser() {
+        apiPage.validationResponseBodyUpdateUser();
+    }
+
+    @When("send DELETE request")
+    public void sendDELETERequest() {
+        apiPage.sendDELETERequest();
+    }
+
+    @And("validation response body delete user data")
+    public void validationResponseBodyDeleteUserData() {
+        apiPage.validationResponseBodyDeleteUserData();
+    }
+
+    @And("validation response body get list tags")
+    public void validationResponseBodyGetListTags() {
+        apiPage.validationResponseBodyGetListTags();
+    }
 }
