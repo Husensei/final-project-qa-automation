@@ -1,5 +1,7 @@
 package helper;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import java.io.File;
 import java.util.Random;
 import java.util.UUID;
@@ -35,5 +37,11 @@ public class Utility {
 
     public static String generateInvalidUserId() {
         return UUID.randomUUID().toString().replace("-", "");
+    }
+
+    public static String generateRandomEmail() {
+        String local = RandomStringUtils.randomAlphanumeric(12);
+        String domain = "testdata.com";
+        return local + "@" + domain;
     }
 }

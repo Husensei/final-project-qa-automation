@@ -12,14 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static helper.Models.getListUsers;
+import static helper.Models.*;
 import static helper.Utility.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.in;
 
 public class ApiPage {
 
-    String setUrl, queryParams, retrievedId;
+    String setUrl, queryParams, retrievedId, retrievedEmail;
     Integer paramValue;
     Response res;
 
@@ -28,14 +27,14 @@ public class ApiPage {
             case "GET_LIST_USERS":
                 setUrl = Endpoint.GET_LIST_USERS;
                 break;
+            case "GET_LIST_CREATED_USERS":
+                setUrl = Endpoint.GET_LIST_CREATED_USERS;
+                break;
             case "GET_SPECIFIC_USER":
                 setUrl = Endpoint.GET_SPECIFIC_USER;
                 break;
-            case "CREATE_USER":
-                setUrl = Endpoint.CREATE_USER;
-                break;
-            case "GET_LIST_CREATED_USERS":
-                setUrl = Endpoint.GET_LIST_CREATED_USERS;
+            case "CREATE_NEW_USER":
+                setUrl = Endpoint.CREATE_NEW_USER;
                 break;
             default:
                 System.out.println("Invalid endpoint");
@@ -57,10 +56,23 @@ public class ApiPage {
         if (setUrl.contains("?")) {
             switch (queryParams) {
                 case "Pagination":
-                    assertThat(jsonPath.getString("page")).isEqualTo(Integer.toString(paramValue));
+                    if (paramValue < 0) {
+                        assertThat(jsonPath.getString("page")).isEqualTo(Integer.toString(0));
+                    } else if (paramValue <= 999) {
+                        assertThat(jsonPath.getString("page")).isEqualTo(Integer.toString(paramValue));
+                    } else {
+                        assertThat(jsonPath.getString("page")).isEqualTo(Integer.toString(999));
+                    }
+
                     break;
                 case "Limit":
-                    assertThat(jsonPath.getString("limit")).isEqualTo(Integer.toString(paramValue));
+                    if (paramValue < 5) {
+                        assertThat(jsonPath.getString("limit")).isEqualTo(Integer.toString(5));
+                    } else if (paramValue <= 50) {
+                        assertThat(jsonPath.getString("limit")).isEqualTo(Integer.toString(paramValue));
+                    } else {
+                        assertThat(jsonPath.getString("limit")).isEqualTo(Integer.toString(50));
+                    }
                     break;
                 default:
                     System.out.println("Invalid parameter name");
@@ -91,23 +103,27 @@ public class ApiPage {
         res.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(JSONFile));
     }
 
-    public void addQueryParamsWithValue(String param, int value) throws IllegalArgumentException {
+    public void addQueryParamsWithValue(String param, int value) {
         queryParams = param;
         paramValue = value;
 
         switch (param) {
             case "Pagination":
-                if (value >= 0 && value <= 999) {
+                if (value < 0) {
+                    setUrl = setUrl + "?page=0";
+                } else if (value <= 999) {
                     setUrl = setUrl + "?page=" + value;
                 } else {
-                    throw new IllegalArgumentException("Pagination value must be between 0 and 999");
+                    setUrl = setUrl + "?page=999";
                 }
                 break;
             case "Limit":
-                if (value >= 5 && value <= 50) {
+                if (value < 5) {
+                    setUrl = setUrl + "?limit=5";
+                } else if (value <= 50) {
                     setUrl = setUrl + "?limit=" + value;
                 } else {
-                    throw new IllegalArgumentException("Limit value must be between 5 and 50");
+                    setUrl = setUrl + "?limit=51";
                 }
                 break;
             default:
@@ -175,4 +191,47 @@ public class ApiPage {
             }
         }
     }
+
+    public void sendPOSTRequest() {
+        res = postCreateNewUser(setUrl);
+    }
+
+    public void validationResponseBodyCreateNewUser() {
+        JsonPath jsonPath = new JsonPath(res.asString());
+        String id = jsonPath.getString("id");
+        String firstName = jsonPath.getString("firstName");
+        String lastName = jsonPath.getString("lastName");
+        String email = jsonPath.getString("email");
+        String registerDate = jsonPath.getString("registerDate");
+        String updatedDate = jsonPath.getString("updatedDate");
+
+        assertThat(id).isNotNull();
+        assertThat(firstName).isNotNull();
+        assertThat(lastName).isNotNull();
+        assertThat(email).isNotNull();
+        assertThat(registerDate).isNotNull();
+        assertThat(updatedDate).isNotNull();
+    }
+
+    public void retrieveExistingEmail() {
+        res = postCreateNewUser(setUrl);
+        JsonPath jsonPath = new JsonPath(res.asString());
+
+        retrievedEmail = jsonPath.getString("email");
+    }
+
+    public void sendPOSTRequestWithExistingEmail() {
+        res = postCreateNewUserWithExistingEmail(setUrl, retrievedEmail);
+    }
+
+    public void validationResponseBodyCreateNewUserWithExistingEmail() {
+        JsonPath jsonPath = new JsonPath(res.asString());
+        String error = jsonPath.getString("error");
+        String message = jsonPath.getString("data.email");
+
+        assertThat(error).isEqualTo("BODY_NOT_VALID");
+        assertThat(message).isEqualTo("Email already used");
+    }
+
+
 }

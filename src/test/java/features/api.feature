@@ -28,6 +28,14 @@ Feature: REST API Automation Test for Dummy API
     And validation response JSON with JSONSchema "get_list_all_users.json"
 
   @user
+  Scenario: GET list created users
+    Given endpoint for "GET_LIST_CREATED_USERS"
+    When send GET request
+    Then validation response status code is equal to 200
+    And validation response body list created users
+    And validation response JSON with JSONSchema "get_list_created_users.json"
+
+  @user
   Scenario: GET data specific valid user
     Given endpoint for "GET_SPECIFIC_USER"
     And retrieve "valid" user ID
@@ -55,9 +63,18 @@ Feature: REST API Automation Test for Dummy API
     And validation response JSON with JSONSchema "error_message_invalid_user.json"
 
   @user
-  Scenario: GET list created users
-    Given endpoint for "GET_LIST_CREATED_USERS"
-    When send GET request
+  Scenario: POST create new user
+    Given endpoint for "CREATE_NEW_USER"
+    When send POST request
     Then validation response status code is equal to 200
-    And validation response body list created users
-    And validation response JSON with JSONSchema "get_list_created_users.json"
+    And validation response body create new user
+    And validation response JSON with JSONSchema "post_create_new_user.json"
+
+  @user
+  Scenario: POST create new user with existing email
+    Given endpoint for "CREATE_NEW_USER"
+    And retrieve existing email
+    When send POST request with existing email
+    Then validation response status code is equal to 400
+    And validation response body create new user with existing email
+    And validation response JSON with JSONSchema "post_create_new_user_existing_email.json"

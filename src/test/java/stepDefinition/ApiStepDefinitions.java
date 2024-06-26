@@ -44,6 +44,11 @@ public class ApiStepDefinitions {
         apiPage.addQueryParamsWithValue(param, value);
     }
 
+    @And("validation response body list created users")
+    public void validationResponseBodyListCreatedUsers() {
+        apiPage.validationResponseBodyListCreatedUsers();
+    }
+
     @And("retrieve {string} user ID")
     public void retrieveUserID(String validity) {
         apiPage.retrieveUserID(validity);
@@ -59,8 +64,28 @@ public class ApiStepDefinitions {
         apiPage.validationErrorMessage(errorMessage);
     }
 
-    @And("validation response body list created users")
-    public void validationResponseBodyListCreatedUsers() {
-        apiPage.validationResponseBodyListCreatedUsers();
+    @When("send POST request")
+    public void sendPOSTRequest() {
+        apiPage.sendPOSTRequest();
+    }
+
+    @And("validation response body create new user")
+    public void validationResponseBodyCreateNewUser() {
+        apiPage.validationResponseBodyCreateNewUser();
+    }
+
+    @And("retrieve existing email")
+    public void retrieveExistingEmail() {
+        apiPage.retrieveExistingEmail();
+    }
+
+    @When("send POST request with existing email")
+    public void sendPOSTRequestWithExistingEmail() {
+        apiPage.sendPOSTRequestWithExistingEmail();
+    }
+
+    @And("validation response body create new user with existing email")
+    public void validationResponseBodyCreateNewUserWithExistingEmail() {
+        apiPage.validationResponseBodyCreateNewUserWithExistingEmail();
     }
 }
