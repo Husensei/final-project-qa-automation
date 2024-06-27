@@ -1,12 +1,18 @@
 package helper;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.Random;
 import java.util.UUID;
 
 public class Utility {
+    public static WebDriver driver;
 
     public static File getJSONSchemaFile(String JSONFile) {
         return new File("src/test/java/helper/JSONSchemaData/" + JSONFile);
@@ -43,5 +49,32 @@ public class Utility {
         String local = RandomStringUtils.randomAlphanumeric(12);
         String domain = "testdata.com";
         return local + "@" + domain;
+    }
+
+    public static String generateRandomString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 15; i++) {
+            int randomInt = (int) (Math.random() * 62);
+            char randomChar = (char) (randomInt < 26 ? 'a' + randomInt : (randomInt < 52 ? 'A' + randomInt - 26 : '0' + randomInt - 52));
+            sb.append(randomChar);
+        }
+        return sb.toString();
+    }
+
+    public static void startDriver() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--remote-allow-origins=*");
+        //options.addArguments("--headless");
+        WebDriverManager.chromedriver().setup();
+
+        driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+    }
+
+    public static void quitDriver() {
+        driver.quit();
     }
 }

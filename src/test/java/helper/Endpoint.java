@@ -2,9 +2,11 @@ package helper;
 
 public class Endpoint {
 
-    private static final String BASE_URL = "https://dummyapi.io/data/v1/";
-    private static final String USER_ENDPOINT = "user";
-    private static final String TAG_ENDPOINT = "tag";
+    private static final String BASE_URL = "https://dummyapi.io/data/v1";
+    private static final String USER_ENDPOINT = "/user";
+    private static final String TAG_ENDPOINT = "/tag";
+    private static final String POST_ENDPOINT = "/post";
+    private static final String COMMENT_ENDPOINT = "/comment";
 
     // USER CONTROLLER
     public static final String GET_LIST_USERS = BASE_URL + USER_ENDPOINT;
