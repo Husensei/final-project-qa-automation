@@ -24,6 +24,8 @@ public class HomePage {
         buttonLocators.put("Log Out Menu", By.id("logout2"));
         buttonLocators.put("Sign Up Menu", By.id("signin2"));
 
+        buttonLocators.put("Send Message", By.cssSelector("//button[text()='Send message']"));
+        buttonLocators.put("Cancel Message", By.xpath("//div[@id='exampleModal']//button[@type='button'][normalize-space()='Close']"));
         buttonLocators.put("Log In Submit", By.xpath("//button[text()='Log in']"));
         buttonLocators.put("Log In Cancel", By.xpath("//div[@id='logInModal']//button[@type='button'][normalize-space()='Close']"));
         buttonLocators.put("Sign Up Submit", By.xpath("//button[text()='Sign up']"));

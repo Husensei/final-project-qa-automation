@@ -19,12 +19,14 @@ public class WebStepDefinitions {
     String menu;
     WebPage webPage;
     HomePage homePage;
+    FormContact formContact;
     FormLogIn formLogIn;
     FormSignUp formSignUp;
 
     public WebStepDefinitions() {
         webPage = new WebPage();
         homePage = new HomePage();
+        formContact = new FormContact();
         formLogIn = new FormLogIn();
         formSignUp = new FormSignUp();
     }
@@ -38,6 +40,21 @@ public class WebStepDefinitions {
     public void userClicksButton(String button) {
         menu = button;
         homePage.clickMenuButton(button);
+    }
+
+    @When("user input contact email")
+    public void userInputContactEmail() {
+        formContact.inputContactEmail();
+    }
+
+    @And("user input contact name")
+    public void userInputContactName() {
+        formContact.inputContactName();
+    }
+
+    @And("user input message")
+    public void userInputMessage() {
+        formContact.inputMessage();
     }
 
     @When("user input valid username and password")
@@ -93,6 +110,4 @@ public class WebStepDefinitions {
     public void verifyLogOutSuccessfulWithMessage(String message) {
         homePage.verifyLogOutSuccessful(message);
     }
-
-
 }

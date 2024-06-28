@@ -1,6 +1,16 @@
 @web
 Feature: Demoblaze Web Automation Test
 
+  @contact
+  Scenario: Send message using Contact Menu
+    Given user is on the "Home Page"
+    And user clicks "Contact Menu" button
+    When user input contact email
+    And user input contact name
+    And user input message
+    And user clicks "Send Message" button
+    Then website shows an alert with message "Thanks for the message!!"
+
   @login
   Scenario: Successful user log in
     Given user is on the "Home Page"
