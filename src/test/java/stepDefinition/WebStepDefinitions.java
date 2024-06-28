@@ -71,6 +71,15 @@ public class WebStepDefinitions {
         homePage.verifyLogInSuccessful(message);
     }
 
+    @When("user input invalid username and password")
+    public void userInputInvalidUsernameAndPassword() {
+        String username = generateRandomString();
+        String password = generateRandomString();
+
+        formLogIn.inputUsername(username);
+        formLogIn.inputPassword(password);
+    }
+
     @And("user has been logged in")
     public void userHasBeenLoggedIn() {
         homePage.clickMenuButton("Log In Menu");
@@ -84,4 +93,6 @@ public class WebStepDefinitions {
     public void verifyLogOutSuccessfulWithMessage(String message) {
         homePage.verifyLogOutSuccessful(message);
     }
+
+
 }

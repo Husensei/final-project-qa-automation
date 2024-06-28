@@ -1,6 +1,45 @@
 @web
 Feature: Demoblaze Web Automation Test
 
+  @login
+  Scenario: Successful user log in
+    Given user is on the "Home Page"
+    And user clicks "Log In Menu" button
+    When user input username "admin" and password "admin"
+    And user clicks "Log In Submit" button
+    Then verify log in successful with message "Welcome admin"
+
+  @login
+  Scenario: Unsuccessful user log in invalid username
+    Given user is on the "Home Page"
+    And user clicks "Log In Menu" button
+    When user input invalid username and password
+    And user clicks "Log In Submit" button
+    Then website shows an alert with message "User does not exist."
+
+  @login
+  Scenario: Unsuccessful user log in wrong password
+    Given user is on the "Home Page"
+    And user clicks "Log In Menu" button
+    When user input username "admin" and password "password"
+    And user clicks "Log In Submit" button
+    Then website shows an alert with message "Wrong password."
+
+  @login
+  Scenario: Unsuccessful user log in blank field
+    Given user is on the "Home Page"
+    And user clicks "Log In Menu" button
+    When user input username "" and password ""
+    And user clicks "Log In Submit" button
+    Then website shows an alert with message "Please fill out Username and Password."
+
+  @login
+  Scenario: Successful user log out
+    Given user is on the "Home Page"
+    And user has been logged in
+    When user clicks "Log Out Menu" button
+    Then verify log out successful with message "Sign up"
+
   @signup
   Scenario: Successful user registration
     Given user is on the "Home Page"
@@ -25,17 +64,3 @@ Feature: Demoblaze Web Automation Test
     And user clicks "Sign Up Submit" button
     Then website shows an alert with message "Please fill out Username and Password."
 
-  @login
-  Scenario: Successful user log in
-    Given user is on the "Home Page"
-    And user clicks "Log In Menu" button
-    When user input username "admin" and password "admin"
-    And user clicks "Log In Submit" button
-    Then verify log in successful with message "Welcome admin"
-
-  @login 
-  Scenario: Successful user log out
-    Given user is on the "Home Page"
-    And user has been logged in
-    When user clicks "Log Out Menu" button
-    Then verify log out successful with message "Sign up"
