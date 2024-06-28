@@ -20,6 +20,7 @@ public class WebStepDefinitions {
     WebPage webPage;
     HomePage homePage;
     FormContact formContact;
+    AboutUsPage aboutUsPage;
     FormLogIn formLogIn;
     FormSignUp formSignUp;
 
@@ -27,6 +28,7 @@ public class WebStepDefinitions {
         webPage = new WebPage();
         homePage = new HomePage();
         formContact = new FormContact();
+        aboutUsPage = new AboutUsPage();
         formLogIn = new FormLogIn();
         formSignUp = new FormSignUp();
     }
@@ -109,5 +111,15 @@ public class WebStepDefinitions {
     @Then("verify log out successful with message {string}")
     public void verifyLogOutSuccessfulWithMessage(String message) {
         homePage.verifyLogOutSuccessful(message);
+    }
+
+    @And("user clicks video player")
+    public void userClicksVideoPlayer() {
+        aboutUsPage.clickVideoPlayer();
+    }
+
+    @Then("video played successfully")
+    public void videoPlayedSuccessfully() {
+        aboutUsPage.verifyVideoPlayedSuccessfully();
     }
 }

@@ -11,6 +11,13 @@ Feature: Demoblaze Web Automation Test
     And user clicks "Send Message" button
     Then website shows an alert with message "Thanks for the message!!"
 
+  @about
+  Scenario: Video popup in About Us Menu
+    Given user is on the "Home Page"
+    When user clicks "About Us Menu" button
+    And user clicks video player
+    Then video played successfully
+
   @login
   Scenario: Successful user log in
     Given user is on the "Home Page"
