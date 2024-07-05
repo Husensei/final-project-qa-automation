@@ -81,3 +81,28 @@ Feature: Demoblaze Web Automation Test
     And user clicks "Sign Up Submit" button
     Then website shows an alert with message "Please fill out Username and Password."
 
+  @cart
+  Scenario: Add to cart functionality
+    Given user is on the "Home Page"
+    And user clicks product "Samsung galaxy s6"
+    Then verify product detail page displayed properly
+    When user clicks "Add to Cart" button
+    Then website shows an alert with message "Product added"
+
+  @cart
+  Scenario: Place order functionality
+    Given user is on the "Home Page"
+    And user clicks product "Samsung galaxy s6"
+    Then verify product detail page displayed properly
+    When user clicks "Add to Cart" button
+    Then website shows an alert with message "Product added"
+    When user clicks "Home Menu" button
+    And user clicks product "Sony vaio i5"
+    Then verify product detail page displayed properly
+    When user clicks "Add to Cart" button
+    Then website shows an alert with message "Product added"
+    When user clicks "Cart Menu" button
+    Then verify ordered product details
+
+
+

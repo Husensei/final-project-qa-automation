@@ -1,5 +1,7 @@
 package stepDefinition;
 
+import helper.OrderedProduct;
+import helper.ProductDetails;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -21,16 +23,24 @@ public class WebStepDefinitions {
     HomePage homePage;
     FormContact formContact;
     AboutUsPage aboutUsPage;
+    CartPage cartPage;
     FormLogIn formLogIn;
     FormSignUp formSignUp;
+    ProductPage productPage;
+    OrderedProduct orderedProduct;
+
+    String product = "";
 
     public WebStepDefinitions() {
         webPage = new WebPage();
         homePage = new HomePage();
         formContact = new FormContact();
         aboutUsPage = new AboutUsPage();
+        cartPage = new CartPage();
         formLogIn = new FormLogIn();
         formSignUp = new FormSignUp();
+        productPage = new ProductPage();
+        orderedProduct = new OrderedProduct();
     }
 
     @Given("user is on the {string}")
@@ -39,9 +49,14 @@ public class WebStepDefinitions {
     }
 
     @And("user clicks {string} button")
-    public void userClicksButton(String button) {
+    public void userClicksButton(String button) throws InterruptedException {
         menu = button;
         homePage.clickMenuButton(button);
+
+        if (button.equals("Add to Cart")) {
+            ProductDetails productDetails = productPage.getProductDetails();
+            orderedProduct.addProductDetailsOrder(productDetails);
+        }
     }
 
     @When("user input contact email")
@@ -121,5 +136,25 @@ public class WebStepDefinitions {
     @Then("video played successfully")
     public void videoPlayedSuccessfully() {
         aboutUsPage.verifyVideoPlayedSuccessfully();
+    }
+
+    @And("user clicks product {string}")
+    public void userClicksProduct(String productName) {
+        homePage.clickProduct(productName);
+        product = productName;
+    }
+
+    @Then("verify product detail page displayed properly")
+    public void verifyProductDetailPageDisplayedProperly() {
+        productPage.verifyProductName(product);
+    }
+
+    @Then("verify ordered product details")
+    public void verifyOrderedProductDetails() {
+        String productName = orderedProduct.getProductOrdered().getFirst().getName();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.xpath("//div[@id='page-wrapper']")), productName));
+
+        cartPage.verifyOrderedProductDetails(orderedProduct);
     }
 }

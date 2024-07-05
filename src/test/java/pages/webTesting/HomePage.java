@@ -23,6 +23,7 @@ public class HomePage {
         buttonLocators.put("Log In Menu", By.id("login2"));
         buttonLocators.put("Log Out Menu", By.id("logout2"));
         buttonLocators.put("Sign Up Menu", By.id("signin2"));
+        buttonLocators.put("Add to Cart", By.xpath("//a[contains(text(),'Add to cart')]"));
 
         buttonLocators.put("Send Message", By.cssSelector("//button[text()='Send message']"));
         buttonLocators.put("Cancel Message", By.xpath("//div[@id='exampleModal']//button[@type='button'][normalize-space()='Close']"));
@@ -36,6 +37,11 @@ public class HomePage {
         driver.findElement(buttonLocators.get(buttonName)).click();
     }
 
+    public void clickProduct(String productName) {
+        By product = By.xpath("//a[@class='hrefch'][contains(text(),'" + productName + "')]");
+        driver.findElement(product).click();
+    }
+
     public void verifyLogInSuccessful(String expectedMessage) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nameofuser")));
@@ -47,6 +53,4 @@ public class HomePage {
         String actualMessage = driver.findElement(buttonLocators.get("Sign Up Menu")).getText();
         assertThat(actualMessage).isEqualTo(expectedMessage);
     }
-
-
 }
