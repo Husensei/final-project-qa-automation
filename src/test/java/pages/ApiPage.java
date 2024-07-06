@@ -185,8 +185,6 @@ public class ApiPage {
         if (dataSize == 0) {
             assertThat(jsonPath.getString("total")).isEqualTo(Integer.toString(dataSize));
         } else {
-            assertThat(jsonPath.getString("total")).isEqualTo(Integer.toString(dataSize));
-
             List<Map<String, String>> users = jsonPath.getList("data");
             for (Map<String, String> user : users) {
                 assertThat(user).containsKey("id");
