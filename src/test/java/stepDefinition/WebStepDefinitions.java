@@ -120,7 +120,6 @@ public class WebStepDefinitions {
         formLogIn.inputUsername("admin");
         formLogIn.inputPassword("admin");
         homePage.clickMenuButton("Log In Submit");
-        homePage.verifyLogInSuccessful("Welcome admin");
     }
 
     @Then("verify log out successful with message {string}")

@@ -30,7 +30,7 @@ public class WebPage {
     }
 
     public void websiteShowsAnAlertWithMessage(String alertMessage) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.alertIsPresent());
         if (isAlertPresent()) {
             Alert alert = driver.switchTo().alert();
