@@ -18,17 +18,6 @@ public class Utility {
         return new File("src/test/java/helper/JSONSchemaData/" + JSONFile);
     }
 
-    public static String generateValidUserId() {
-        String firstAllowedChars = "cd";
-        String secondAllowedChars = "cdef";
-
-        Random random = new Random();
-        char firstChar = firstAllowedChars.charAt(random.nextInt(firstAllowedChars.length()));
-        char secondChar = secondAllowedChars.charAt(random.nextInt(secondAllowedChars.length()));
-
-        return "60d0fe4f5311236168a109" + firstChar + secondChar;
-    }
-
     public static String generateRandomUserId() {
         String allowedChars = "0123456789abcdef";
 

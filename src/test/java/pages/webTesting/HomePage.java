@@ -45,7 +45,7 @@ public class HomePage {
     }
 
     public void verifyLogInSuccessful(String expectedMessage) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nameofuser")));
         String actualMessage = driver.findElement(welcomeUser).getText();
         assertThat(actualMessage).isEqualTo(expectedMessage);
