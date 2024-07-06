@@ -38,3 +38,52 @@ configurations {
     }
 }
 
+tasks.register('cucumberTest') {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:reports/index.html',
+                    '--glue', 'stepDefinition',
+                    '--tags', "",
+                    'src/test/resources/features']
+        }
+    }
+}
+
+tasks.register("apiTest") {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:reports/index.html',
+                    '--glue', 'stepDefinition',
+                    '--tags', "@api",
+                    'src/test/java/features'
+            ]
+        }
+    }
+}
+
+tasks.register("webTest") {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:reports/index.html',
+                    '--glue', 'stepDefinition',
+                    '--tags', "@web",
+                    'src/test/java/features'
+            ]
+        }
+    }
+}

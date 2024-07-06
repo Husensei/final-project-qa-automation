@@ -27,7 +27,7 @@ public class HomePage {
         buttonLocators.put("Place Order", By.xpath("//button[contains(text(),'Place Order')]"));
         buttonLocators.put("Purchase", By.xpath("//button[contains(text(),'Purchase')]"));
 
-        buttonLocators.put("Send Message", By.cssSelector("//button[text()='Send message']"));
+        buttonLocators.put("Send Message", By.xpath("//button[text()='Send message']"));
         buttonLocators.put("Cancel Message", By.xpath("//div[@id='exampleModal']//button[@type='button'][normalize-space()='Close']"));
         buttonLocators.put("Log In Submit", By.xpath("//button[text()='Log in']"));
         buttonLocators.put("Log In Cancel", By.xpath("//div[@id='logInModal']//button[@type='button'][normalize-space()='Close']"));
