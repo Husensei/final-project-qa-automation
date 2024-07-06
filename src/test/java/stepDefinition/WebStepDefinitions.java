@@ -157,4 +157,14 @@ public class WebStepDefinitions {
 
         cartPage.verifyOrderedProductDetails(orderedProduct);
     }
+
+    @And("user input form data name {string} country {string} city {string} card {string} month {string} year {string}")
+    public void userInputFormData(String name, String country, String city, String card, String month, String year) {
+        cartPage.inputPlaceOrderFormData(name, country, city, card, month, year);
+    }
+
+    @Then("verify product ordered successfully")
+    public void verifyProductOrderedSuccessfully() {
+        cartPage.verifyPlaceOrderInfo(orderedProduct);
+    }
 }

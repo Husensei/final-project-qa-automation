@@ -90,7 +90,7 @@ Feature: Demoblaze Web Automation Test
     Then website shows an alert with message "Product added"
 
   @cart
-  Scenario: Place order functionality
+  Scenario: Order product functionality
     Given user is on the "Home Page"
     And user clicks product "Samsung galaxy s6"
     Then verify product detail page displayed properly
@@ -103,6 +103,8 @@ Feature: Demoblaze Web Automation Test
     Then website shows an alert with message "Product added"
     When user clicks "Cart Menu" button
     Then verify ordered product details
-
-
+    When user clicks "Place Order" button
+    And user input form data name "Test Name" country "Test Country" city "Test City" card "12345" month "7" year "2024"
+    When user clicks "Purchase" button
+    Then verify product ordered successfully
 
