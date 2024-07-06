@@ -19,8 +19,8 @@ public class Utility {
     }
 
     public static String generateValidUserId() {
-        String firstAllowedChars = "ef";
-        String secondAllowedChars = "abcde23456789";
+        String firstAllowedChars = "cdef";
+        String secondAllowedChars = "bcdef";
 
         Random random = new Random();
         char firstChar = firstAllowedChars.charAt(random.nextInt(firstAllowedChars.length()));
