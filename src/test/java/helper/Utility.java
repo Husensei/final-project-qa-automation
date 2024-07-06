@@ -20,7 +20,7 @@ public class Utility {
 
     public static String generateValidUserId() {
         String firstAllowedChars = "cd";
-        String secondAllowedChars = "bcdef";
+        String secondAllowedChars = "cdef";
 
         Random random = new Random();
         char firstChar = firstAllowedChars.charAt(random.nextInt(firstAllowedChars.length()));

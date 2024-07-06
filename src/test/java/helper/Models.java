@@ -17,8 +17,8 @@ public class Models {
                 .given()
                     .header("Content-Type", "application/json")
                     .header("Accept", "application/json")
-                    .header("app-id", "667384efccc5bc4d97c4bd35");
-//                    .filter(ResponseLoggingFilter.responseLogger());
+                    .header("app-id", "667384efccc5bc4d97c4bd35")
+                    .filter(ResponseLoggingFilter.responseLogger());
     }
 
     public static Response getListUsers(String endpoint) {

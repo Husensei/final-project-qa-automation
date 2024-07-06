@@ -37,6 +37,10 @@ Feature: REST API Automation Test for Dummy API
 
   @user
   Scenario: GET data specific valid user
+    Given endpoint for "CREATE_NEW_USER"
+    When send POST request
+    Then validation response status code is equal to 200
+    And validation response body create new user
     Given endpoint for "GET_SPECIFIC_USER"
     And retrieve "valid" user ID
     When send GET request
@@ -89,6 +93,10 @@ Feature: REST API Automation Test for Dummy API
 
   @user
   Scenario: PUT update user data
+    Given endpoint for "CREATE_NEW_USER"
+    When send POST request
+    Then validation response status code is equal to 200
+    And validation response body create new user
     Given endpoint for "UPDATE_USER"
     And retrieve "valid" user ID
     When send PUT request
@@ -98,6 +106,10 @@ Feature: REST API Automation Test for Dummy API
 
   @user
   Scenario: DELETE user data valid ID
+    Given endpoint for "CREATE_NEW_USER"
+    When send POST request
+    Then validation response status code is equal to 200
+    And validation response body create new user
     Given endpoint for "DELETE_USER"
     And retrieve "valid" user ID
     When send DELETE request

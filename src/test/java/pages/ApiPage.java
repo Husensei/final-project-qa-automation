@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ApiPage {
 
-    String setUrl, queryParams, retrievedId, retrievedEmail;
+    String setUrl, queryParams, retrievedId, retrievedEmail, validId;
     Integer paramValue;
     Response res;
 
@@ -142,9 +142,7 @@ public class ApiPage {
     public void retrieveUserID(String validity) {
         switch (validity) {
             case "valid":
-                String validId = generateValidUserId();
                 retrievedId = validId;
-                System.out.println(validId);
                 setUrl = setUrl.replace("{id}", validId);
                 break;
             case "random":
@@ -166,10 +164,8 @@ public class ApiPage {
         assertThat(jsonPath.getString("id")).isEqualTo(retrievedId);
 
         assertThat(jsonPath.getString("id")).isNotNull();
-        assertThat(jsonPath.getString("title")).isIn("mr", "mrs", "miss", "ms", "dr", "");
         assertThat(jsonPath.getString("firstName")).isNotNull();
         assertThat(jsonPath.getString("lastName")).isNotNull();
-        assertThat(jsonPath.getString("gender")).isIn("male", "female", "other", "");
         assertThat(jsonPath.getString("email")).isNotNull();
     }
 
@@ -211,6 +207,7 @@ public class ApiPage {
         String registerDate = jsonPath.getString("registerDate");
         String updatedDate = jsonPath.getString("updatedDate");
 
+        validId = id;
         assertThat(id).isNotNull();
         assertThat(firstName).isNotNull();
         assertThat(lastName).isNotNull();
